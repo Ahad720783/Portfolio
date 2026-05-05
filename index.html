@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+        <script>
+        (function(){
+            emailjs.init("HxDnlYb69dpamKjBr");
+        })();
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mohammad Abdul Ahad Sharif - Full Stack Developer</title>
@@ -1140,23 +1146,24 @@
         window.addEventListener('scroll', animateOnScroll);
 
         // Contact form handling
-        const contactForm = document.getElementById('contact-form');
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Simple form validation
-            const formData = new FormData(contactForm);
-            const name = formData.get('name');
-            const email = formData.get('email');
-            const subject = formData.get('subject');
-            const message = formData.get('message');
+      const contactForm = document.getElementById('contact-form');
 
-            if (name && email && subject && message) {
-                alert('Thank you for your message! I\'ll get back to you soon.');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+        
+            emailjs.sendForm(
+                'service_tcqoi5m',
+                'cbbvk5q',
+                this
+            )
+            .then(function() {
+                alert('Message sent successfully!');
                 contactForm.reset();
-            } else {
-                alert('Please fill in all fields.');
-            }
+            })
+            .catch(function(error) {
+                alert('Failed to send message.');
+                console.log(error);
+            });
         });
 
         // Initialize animations on page load
